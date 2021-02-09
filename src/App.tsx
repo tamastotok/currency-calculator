@@ -1,7 +1,14 @@
 import React from "react";
+import Exchange from "./pages/Header";
+import Values from "./pages/Body";
 
 function App() {
-   return <div></div>;
+   return (
+      <>
+         <Exchange />
+         <Values />
+      </>
+   );
 }
 
 export default App;
