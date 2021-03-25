@@ -1,9 +1,9 @@
-import React, { useState } from "react";
-import CurrencyRatio from "./components/CurrencyRatio";
-import History from "./components/History";
-import ShowHistoryButton from "./components/ShowHistoryButton";
+import { useState } from "react";
+import CurrencyRatio from "./CurrencyRatio";
+import History from "./CurrencyHistory";
+import ShowHistoryButton from "./ShowHistoryButton";
 
-const Values = () => {
+export default function Values() {
    const [isClicked, setIsClicked] = useState<boolean>(false);
 
    const showHistory = () => {
@@ -17,6 +17,4 @@ const Values = () => {
          {isClicked ? <History /> : null}
       </div>
    );
-};
-
-export default Values;
+}

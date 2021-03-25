@@ -1,15 +1,17 @@
 import { useSelector } from "react-redux";
 import { Line } from "react-chartjs-2";
-import useHistoricalRates from "../../../hooks/useHistoricalRates";
+import useHistoricalRates from "../../hooks/useHistoricalRates";
 
-const Chart = () => {
+export default function Chart() {
    interface State {
-      primary: string;
-      secondary: string;
+      primaryCurrency: string;
+      secondaryCurrency: string;
    }
 
-   const primary = useSelector((state: State) => state.primary);
-   const secondary = useSelector((state: State) => state.secondary);
+   const primaryCurrency = useSelector((state: State) => state.primaryCurrency);
+   const secondaryCurrency = useSelector(
+      (state: State) => state.secondaryCurrency
+   );
 
    const currencyHistory = useHistoricalRates();
 
@@ -22,7 +24,7 @@ const Chart = () => {
 
       datasets: [
          {
-            label: `${primary} / ${secondary}`,
+            label: `${primaryCurrency} / ${secondaryCurrency}`,
             fill: false,
             lineTension: 0.1,
             //backgroundColor: "rgba(75,192,192,0.4)",
@@ -47,6 +49,4 @@ const Chart = () => {
    };
 
    return <Line data={data} width={260} height={220} options={options} />;
-};
-
-export default Chart;
+}

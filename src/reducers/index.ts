@@ -1,16 +1,16 @@
 import { combineReducers } from "redux";
-import amountReducer from "./amountOfCurrency";
-import historyReducer from "./history";
-import primaryReducer from "./primaryCurrency";
-import secondaryReducer from "./secondaryCurrency";
-import isLoadingReducer from "./setIsLoading";
+import amountReducer from "./set-amount";
+import currencyHistoryReducer from "./currency-history";
+import primaryCurrencyReducer from "./primary-currency";
+import secondaryCurrencyReducer from "./secondary-currency";
+import isLoadingReducer from "./set-loading";
 
 const reducers = combineReducers({
    amount: amountReducer,
-   primary: primaryReducer,
-   secondary: secondaryReducer,
+   primaryCurrency: primaryCurrencyReducer,
+   secondaryCurrency: secondaryCurrencyReducer,
    isLoading: isLoadingReducer,
-   history: historyReducer,
+   currencyHistory: currencyHistoryReducer,
 });
 
 export default reducers;

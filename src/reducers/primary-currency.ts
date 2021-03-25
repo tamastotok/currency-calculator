@@ -5,7 +5,7 @@ interface Primary {
    payload: string;
 }
 
-const primaryReducer = (state: string = "", action: Primary) => {
+const primaryCurrencyReducer = (state: string = "", action: Primary) => {
    switch (action.type) {
       case SET_PRIMARY_CURRENCY:
          return action.payload;
@@ -13,4 +13,4 @@ const primaryReducer = (state: string = "", action: Primary) => {
          return state;
    }
 };
-export default primaryReducer;
+export default primaryCurrencyReducer;

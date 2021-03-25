@@ -1,10 +1,10 @@
-import React from "react";
+import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { setCurrencyHistory } from "../../actions/currency_history";
 import { makeStyles, Theme } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
 import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
-import { setHistory } from "../../../actions/SetHistory";
-import { useDispatch } from "react-redux";
 import Chart from "./Chart";
 
 function a11yProps(index: any) {
@@ -33,9 +33,9 @@ const useStyles = makeStyles((theme: Theme) => ({
    },
 }));
 
-const History = () => {
+export default function CurrencyHistory() {
    const classes = useStyles();
-   const [value, setValue] = React.useState(0);
+   const [value, setValue] = useState<number>(0);
 
    const handleChange = (event: React.ChangeEvent<{}>, newValue: number) => {
       setValue(newValue);
@@ -58,37 +58,37 @@ const History = () => {
                <Tab
                   label="1w"
                   {...a11yProps(0)}
-                  onClick={() => dispatch(setHistory("1week"))}
+                  onClick={() => dispatch(setCurrencyHistory("1week"))}
                />
                <Tab
                   label="2w"
                   {...a11yProps(1)}
-                  onClick={() => dispatch(setHistory("2weeks"))}
+                  onClick={() => dispatch(setCurrencyHistory("2weeks"))}
                />
                <Tab
                   label="1m"
                   {...a11yProps(2)}
-                  onClick={() => dispatch(setHistory("1month"))}
+                  onClick={() => dispatch(setCurrencyHistory("1month"))}
                />
                <Tab
                   label="3m"
                   {...a11yProps(3)}
-                  onClick={() => dispatch(setHistory("3months"))}
+                  onClick={() => dispatch(setCurrencyHistory("3months"))}
                />
                <Tab
                   label="6m"
                   {...a11yProps(4)}
-                  onClick={() => dispatch(setHistory("6months"))}
+                  onClick={() => dispatch(setCurrencyHistory("6months"))}
                />
                <Tab
                   label="1y"
                   {...a11yProps(5)}
-                  onClick={() => dispatch(setHistory("1year"))}
+                  onClick={() => dispatch(setCurrencyHistory("1year"))}
                />
                <Tab
                   label="All"
                   {...a11yProps(6)}
-                  onClick={() => dispatch(setHistory("all"))}
+                  onClick={() => dispatch(setCurrencyHistory("all"))}
                />
             </Tabs>
          </AppBar>
@@ -97,6 +97,4 @@ const History = () => {
          </div>
       </div>
    );
-};
-
-export default History;
+}

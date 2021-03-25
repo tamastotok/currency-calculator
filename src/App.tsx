@@ -1,8 +1,7 @@
-import React from "react";
-import Exchange from "./pages/Header";
-import Values from "./pages/Body";
+import Exchange from "./components/Header";
+import Values from "./components/Body";
 
-function App() {
+export default function App() {
    return (
       <>
          <Exchange />
@@ -10,5 +9,3 @@ function App() {
       </>
    );
 }
-
-export default App;

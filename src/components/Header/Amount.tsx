@@ -1,8 +1,8 @@
-import React, { ChangeEvent, useState } from "react";
+import { ChangeEvent, useState } from "react";
+import { useDispatch } from "react-redux";
+import { setAmount } from "../../actions/set_amount";
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 import Input from "@material-ui/core/Input";
-import { useDispatch } from "react-redux";
-import { setAmount } from "../../../actions/SetAmount";
 
 const useStyles = makeStyles((theme: Theme) =>
    createStyles({
@@ -16,7 +16,7 @@ const useStyles = makeStyles((theme: Theme) =>
    })
 );
 
-const Amount = () => {
+export default function Amount() {
    const dispatch = useDispatch();
 
    // Material UI
@@ -48,6 +48,4 @@ const Amount = () => {
          />
       </form>
    );
-};
-
-export default Amount;
+}

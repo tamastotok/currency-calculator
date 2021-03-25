@@ -1,20 +1,22 @@
 import { useState, useEffect, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { setIsLoading } from "../actions/SetIsLoading";
+import { setIsLoading } from "../actions/set_loading";
 import axios from "axios";
 
 const useCurrencyRate = () => {
    const dispatch = useDispatch();
 
    interface State {
-      primary: string;
-      secondary: string;
+      primaryCurrency: string;
+      secondaryCurrency: string;
       amount: number;
       isLoading: boolean;
    }
 
-   const primary = useSelector((state: State) => state.primary);
-   const secondary = useSelector((state: State) => state.secondary);
+   const primaryCurrency = useSelector((state: State) => state.primaryCurrency);
+   const secondaryCurrency = useSelector(
+      (state: State) => state.secondaryCurrency
+   );
    const amount = useSelector((state: State) => state.amount);
    const isLoading = useSelector((state: State) => state.isLoading);
 
@@ -26,20 +28,20 @@ const useCurrencyRate = () => {
 
    // memory caching api data
    interface Cache {
-      primary: string;
-      secondary: string;
+      primaryCurrency: string;
+      secondaryCurrency: string;
    }
    const cacheData = useRef<Cache>({
-      primary: "",
-      secondary: "",
+      primaryCurrency: "",
+      secondaryCurrency: "",
    });
    //-----
 
    const getCurrencyRate = async () => {
       // in memory cache
       if (
-         cacheData.current.primary === primary &&
-         cacheData.current.secondary === secondary
+         cacheData.current.primaryCurrency === primaryCurrency &&
+         cacheData.current.secondaryCurrency === secondaryCurrency
       ) {
          setResult((rate * amount).toFixed(2));
          dispatch(setIsLoading(false));
@@ -49,12 +51,12 @@ const useCurrencyRate = () => {
 
       try {
          const currencyRate = await axios.get(
-            `https://api.exchangeratesapi.io/latest?base=${primary}&symbols=${secondary}`
+            `https://api.exchangeratesapi.io/latest?base=${primaryCurrency}&symbols=${secondaryCurrency}`
          );
 
          // cache
-         cacheData.current.primary = currencyRate.data.base;
-         cacheData.current.secondary = String(
+         cacheData.current.primaryCurrency = currencyRate.data.base;
+         cacheData.current.secondaryCurrency = String(
             Object.keys(currencyRate.data.rates)
          );
 
@@ -73,7 +75,7 @@ const useCurrencyRate = () => {
    // render only when "search" clicked, and disappear when something change
    useEffect(() => {
       setResult("");
-   }, [amount, primary, secondary]);
+   }, [amount, primaryCurrency, secondaryCurrency]);
 
    // fetch data on "search" click
    useEffect(() => {

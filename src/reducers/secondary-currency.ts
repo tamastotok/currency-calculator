@@ -5,7 +5,7 @@ interface Secondary {
    payload: string;
 }
 
-const secondaryReducer = (state: string = "", action: Secondary) => {
+const secondaryCurrencyReducer = (state: string = "", action: Secondary) => {
    switch (action.type) {
       case SET_SECONDARY_CURRENCY:
          return action.payload;
@@ -13,4 +13,4 @@ const secondaryReducer = (state: string = "", action: Secondary) => {
          return state;
    }
 };
-export default secondaryReducer;
+export default secondaryCurrencyReducer;

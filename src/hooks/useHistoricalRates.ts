@@ -3,24 +3,26 @@ import { useSelector } from "react-redux";
 import axios from "axios";
 
 const useHistoricalRates = () => {
-   const [currencyHistory, setCurrencyHistory] = useState<{}>({});
+   const [result, setResult] = useState<{}>({});
 
    interface State {
-      primary: string;
-      secondary: string;
-      history: string;
+      primaryCurrency: string;
+      secondaryCurrency: string;
+      currencyHistory: string;
    }
 
-   const primary = useSelector((state: State) => state.primary);
-   const secondary = useSelector((state: State) => state.secondary);
-   const history = useSelector((state: State) => state.history);
+   const primaryCurrency = useSelector((state: State) => state.primaryCurrency);
+   const secondaryCurrency = useSelector(
+      (state: State) => state.secondaryCurrency
+   );
+   const currencyHistory = useSelector((state: State) => state.currencyHistory);
 
    // calculate start date for fetching data
    let startDate: string;
    const endDate: string = new Date().toISOString().split("T")[0];
    const d = new Date();
 
-   switch (history) {
+   switch (currencyHistory) {
       case "1week":
          startDate = new Date(d.setDate(d.getDate() - 7))
             .toISOString()
@@ -53,14 +55,14 @@ const useHistoricalRates = () => {
    }
    //-----
 
-   const fetchCurrencyHistory = async () => {
-      if (primary || secondary) {
+   const fetchresult = async () => {
+      if (primaryCurrency || secondaryCurrency) {
          try {
             const currency = await axios.get(
-               `https://api.exchangeratesapi.io/history?start_at=${startDate}&end_at=${endDate}&base=${primary}&symbols=${secondary}`
+               `https://api.exchangeratesapi.io/history?start_at=${startDate}&end_at=${endDate}&base=${primaryCurrency}&symbols=${secondaryCurrency}`
             );
 
-            setCurrencyHistory(currency.data.rates);
+            setResult(currency.data.rates);
          } catch (error) {
             console.error(error);
          }
@@ -68,12 +70,12 @@ const useHistoricalRates = () => {
    };
 
    useEffect(() => {
-      if (history) {
-         fetchCurrencyHistory();
+      if (currencyHistory) {
+         fetchresult();
       }
       // eslint-disable-next-line react-hooks/exhaustive-deps
-   }, [history, primary, secondary]);
+   }, [currencyHistory, primaryCurrency, secondaryCurrency]);
 
-   return currencyHistory;
+   return result;
 };
 export default useHistoricalRates;

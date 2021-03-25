@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
-import { setHistory } from "../../../actions/SetHistory";
-import Button from "@material-ui/core/Button";
+import { setCurrencyHistory } from "../../actions/currency_history";
 import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
+import Button from "@material-ui/core/Button";
 
 const useStyles = makeStyles((theme: Theme) =>
    createStyles({
@@ -25,7 +25,7 @@ interface Props {
    isClicked: boolean;
 }
 
-const ShowHistoryButton = (props: Props) => {
+export default function ShowHistoryButton(props: Props) {
    const classes = useStyles();
 
    const { showHistory, isClicked } = props;
@@ -35,7 +35,7 @@ const ShowHistoryButton = (props: Props) => {
 
    const handleClick = () => {
       if (!history) {
-         dispatch(setHistory("1week"));
+         dispatch(setCurrencyHistory("1week"));
       }
       showHistory();
    };
@@ -51,5 +51,4 @@ const ShowHistoryButton = (props: Props) => {
          </Button>
       </div>
    );
-};
-export default ShowHistoryButton;
+}

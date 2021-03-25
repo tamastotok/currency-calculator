@@ -1,13 +1,13 @@
-import React, { useState, ChangeEvent } from "react";
+import { useState, ChangeEvent } from "react";
+import { useDispatch } from "react-redux";
+import { setPrimaryCurrency } from "../../actions/primary_currency";
+import { setSecondaryCurrency } from "../../actions/secondary_currency";
 import { makeStyles, Theme, createStyles } from "@material-ui/core/styles";
 import InputLabel from "@material-ui/core/InputLabel";
 import MenuItem from "@material-ui/core/MenuItem";
 import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
-import { setPrimary } from "../../../actions/SetPrimary";
-import { setSecondary } from "../../../actions/SetSecondary";
-import { useDispatch } from "react-redux";
-import currencies from "../../../data/currencies.json";
+import currencies from "../../data/currencies.json";
 
 const useStyles = makeStyles((theme: Theme) =>
    createStyles({
@@ -28,7 +28,7 @@ const useStyles = makeStyles((theme: Theme) =>
    })
 );
 
-const CurrencyType = ({ index }: any) => {
+export default function CurrencyType({ index }: any) {
    const dispatch = useDispatch();
 
    // Material UI
@@ -41,9 +41,9 @@ const CurrencyType = ({ index }: any) => {
 
       // Save selected currency names in different redux states
       if (index === 1) {
-         dispatch(setPrimary(e.target.value as string));
+         dispatch(setPrimaryCurrency(e.target.value as string));
       } else {
-         dispatch(setSecondary(e.target.value as string));
+         dispatch(setSecondaryCurrency(e.target.value as string));
       }
    };
    // -----
@@ -83,6 +83,4 @@ const CurrencyType = ({ index }: any) => {
          </FormControl>
       </div>
    );
-};
-
-export default CurrencyType;
+}
